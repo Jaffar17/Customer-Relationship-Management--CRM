@@ -1,15 +1,19 @@
-package com.vaadin.tutorial.crm;
+package com.vaadin.tutorial.crm.ui;
 
 import com.vaadin.flow.component.Key;
+import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.PWA;
+import com.vaadin.tutorial.crm.GreetService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -62,7 +66,19 @@ public class MainView extends VerticalLayout {
         addClassName("centered-content");
 
         add(textField, button);
+
+        // Testing with different UI things
         add(new H1("Hello world!"), textField, button);
+
+        Button button2 = new Button("I'm a button");
+        HorizontalLayout layout = new HorizontalLayout(button2, new DatePicker("Pick a date"
+        ));
+        layout.setDefaultVerticalComponentAlignment(Alignment.END);
+        add(layout);
+
+        button2.addClickListener(clickEvent ->
+                add(new Text("Clicked!")));
+
     }
 
 }
