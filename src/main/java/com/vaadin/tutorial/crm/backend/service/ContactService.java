@@ -32,6 +32,14 @@ public class ContactService {
         return contactRepository.findAll();
     }
 
+    public List<Contact> findAll(String stringFilter) {
+        if (stringFilter == null || stringFilter.isEmpty()) {
+            return contactRepository.findAll();
+        } else {
+            return contactRepository.filterContactsByFirstNameOrLastName(stringFilter);
+        }
+    }
+
     public long count() {
         return contactRepository.count();
     }
@@ -56,8 +64,8 @@ public class ContactService {
             companyRepository.saveAll(
                     Stream.of("Path-Way Electronics", "E-Tech Management", "Path-E-Tech " +
                                     "Management")
-                                    .map(Company::new)
-                                    .collect(Collectors.toList()));
+                            .map(Company::new)
+                            .collect(Collectors.toList()));
         }
         if (contactRepository.count() == 0) {
             Random r = new Random(0);
