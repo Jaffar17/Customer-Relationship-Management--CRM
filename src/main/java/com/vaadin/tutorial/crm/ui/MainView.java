@@ -39,6 +39,8 @@ public class MainView extends VerticalLayout {
         add(filterText, content);
 
         updateList();
+
+        closeEditor();
     }
 
     private void configureFilter() {
@@ -61,9 +63,28 @@ public class MainView extends VerticalLayout {
         }).setHeader("Company");
 
         grid.getColumns().forEach(columns -> columns.setAutoWidth(true));
+
+        grid.asSingleSelect().addValueChangeListener(event ->
+                editContact(event.getValue()));
     }
 
     private void updateList(){
         grid.setItems(contactService.findAll(filterText.getValue()));
+    }
+
+    public void editContact(Contact contact) {
+        if (contact == null) {
+            closeEditor();
+        } else {
+            contactForm.setContact(contact);
+            contactForm.setVisible(true);
+            addClassName("editing");
+        }
+    }
+
+    private void closeEditor() {
+        contactForm.setContact(null);
+        contactForm.setVisible(false);
+        removeClassName("editing");
     }
 }
