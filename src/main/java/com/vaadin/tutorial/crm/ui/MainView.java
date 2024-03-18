@@ -31,6 +31,9 @@ public class MainView extends VerticalLayout {
         configureGrid();
 
         contactForm = new ContactForm(companyService.findAll());
+        contactForm.addListener(ContactForm.SaveEvent.class, this::saveContact);
+        contactForm.addListener(ContactForm.DeleteEvent.class, this::deleteContact);
+        contactForm.addListener(ContactForm.CloseEvent.class, e->closeEditor());
 
         Div content = new Div(grid, contactForm);
         content.addClassName("content");
@@ -83,8 +86,20 @@ public class MainView extends VerticalLayout {
     }
 
     private void closeEditor() {
-        contactForm.setContact(null);
+        // contactForm.setContact(null); TODO: remove this line, I think code works fine without this line
         contactForm.setVisible(false);
         removeClassName("editing");
+    }
+
+    private void saveContact(ContactForm.SaveEvent event) {
+        contactService.save(event.getContact());
+        updateList();
+        closeEditor();
+    }
+
+    private void deleteContact(ContactForm.DeleteEvent event) {
+        contactService.delete(event.getContact());
+        updateList();
+        closeEditor();
     }
 }
