@@ -111,6 +111,7 @@ public class MainView extends VerticalLayout {
         addContact.addClickListener(event -> {
             contactForm.setVisible(true);
             addClassName("editing");
+            editContact(new Contact());
         });
     }
 }
