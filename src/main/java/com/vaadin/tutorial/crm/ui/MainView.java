@@ -1,8 +1,10 @@
 package com.vaadin.tutorial.crm.ui;
 
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
@@ -20,6 +22,7 @@ public class MainView extends VerticalLayout {
     private Grid<Contact> grid = new Grid<>(Contact.class);
     private TextField filterText = new TextField();
     private ContactForm contactForm;
+    private Button addContact = new Button("Add Contact");
 
     public MainView(ContactService contactService, CompanyService companyService) {
         this.contactService = contactService;
@@ -28,6 +31,7 @@ public class MainView extends VerticalLayout {
         setSizeFull();
 
         configureFilter();
+        configureAddContactButton();
         configureGrid();
 
         contactForm = new ContactForm(companyService.findAll());
@@ -39,7 +43,7 @@ public class MainView extends VerticalLayout {
         content.addClassName("content");
         content.setSizeFull();
 
-        add(filterText, content);
+        add(new HorizontalLayout(filterText, addContact), content);
 
         updateList();
 
@@ -101,5 +105,12 @@ public class MainView extends VerticalLayout {
         contactService.delete(event.getContact());
         updateList();
         closeEditor();
+    }
+
+    private void configureAddContactButton() {
+        addContact.addClickListener(event -> {
+            contactForm.setVisible(true);
+            addClassName("editing");
+        });
     }
 }
