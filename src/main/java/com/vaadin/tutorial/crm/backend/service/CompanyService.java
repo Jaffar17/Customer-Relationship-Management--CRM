@@ -14,4 +14,14 @@ public class CompanyService {
   public List<Company> findAll() {
   return companyRepository.findAll();
   }
+  public Map<String, Integer> getEmployeeStatsPerCompany() {
+    Map<String, Integer> employeePerCompanyStats = new HashMap<>();
+    List<Company> companies = findAll();
+
+    for(Company company: companies){
+      employeePerCompanyStats.put(company.getName(), company.getEmployees().size());
+    }
+
+    return employeePerCompanyStats;
+  }
 }
