@@ -17,7 +17,7 @@ import com.vaadin.tutorial.crm.ui.MainLayout;
 
 
 @Route(value = "", layout = MainLayout.class)
-@PageTitle("Contacts | Vaadin CRM")
+@PageTitle("Contacts | CRM By Jaffar")
 public class ListView extends VerticalLayout {
     private ContactService contactService;
     private Grid<Contact> grid = new Grid<>(Contact.class);
