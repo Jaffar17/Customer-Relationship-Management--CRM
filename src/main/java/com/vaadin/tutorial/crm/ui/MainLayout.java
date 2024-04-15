@@ -19,7 +19,7 @@ public class MainLayout extends AppLayout {
         createDrawer();
     }
     private void createHeader() {
-        H1 logo = new H1("Vaadin CRM");
+        H1 logo = new H1("CRM By Jaffar");
         logo.addClassName("logo");
         HorizontalLayout header = new HorizontalLayout(new DrawerToggle(), logo);
 
