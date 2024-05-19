@@ -18,6 +18,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private static final String LOGIN_FAILURE_URL = "/login?error";
     private static final String LOGIN_URL = "/login";
     private static final String LOGOUT_SUCCESS_URL = "/login";
+    private static final String CONTACTS_PAGE_URL = "/";
 
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().requestCache().requestCache(new CustomRequestCache())
@@ -25,6 +26,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .requestMatchers(SecurityUtils::isFrameworkInternalRequest).permitAll().anyRequest().authenticated()
                 .and().formLogin()
                 .loginPage(LOGIN_URL).permitAll()
+                .successForwardUrl(CONTACTS_PAGE_URL)
                 .loginProcessingUrl(LOGIN_PROCESSING_URL)
                 .failureUrl(LOGIN_FAILURE_URL)
                 .and().logout().logoutSuccessUrl(LOGOUT_SUCCESS_URL);
