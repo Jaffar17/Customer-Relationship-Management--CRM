@@ -14,16 +14,19 @@ import com.vaadin.tutorial.crm.backend.entity.Contact;
 import com.vaadin.tutorial.crm.backend.service.CompanyService;
 import com.vaadin.tutorial.crm.backend.service.ContactService;
 import com.vaadin.tutorial.crm.ui.MainLayout;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
-
+@Component
+@Scope("prototype")
 @Route(value = "", layout = MainLayout.class)
 @PageTitle("Contacts | CRM By Jaffar")
 public class ListView extends VerticalLayout {
-    private ContactService contactService;
-    private Grid<Contact> grid = new Grid<>(Contact.class);
-    private TextField filterText = new TextField();
-    private ContactForm contactForm;
-    private Button addContact = new Button("Add Contact");
+    ContactService contactService;
+    Grid<Contact> grid = new Grid<>(Contact.class);
+    TextField filterText = new TextField();
+    ContactForm contactForm;
+    Button addContact = new Button("Add Contact");
 
     public ListView(ContactService contactService, CompanyService companyService) {
         this.contactService = contactService;
