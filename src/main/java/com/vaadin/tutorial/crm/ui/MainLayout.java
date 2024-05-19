@@ -10,15 +10,24 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.HighlightConditions;
 import com.vaadin.flow.router.RouterLink;
+import com.vaadin.flow.server.PWA;
 import com.vaadin.tutorial.crm.ui.view.dashboard.DashboardView;
 import com.vaadin.tutorial.crm.ui.view.list.ListView;
 
 @CssImport("./styles/shared-styles.css")
+@PWA(
+        name = "CRM By Jaffar",
+        shortName = "JaffarCRM",
+        offlineResources = {
+                "./styles/offline.css",
+                "./images/offline.png"}
+)
 public class MainLayout extends AppLayout {
     public MainLayout() {
         createHeader();
         createDrawer();
     }
+
     private void createHeader() {
         H1 logo = new H1("CRM By Jaffar");
         logo.addClassName("logo");
@@ -33,6 +42,7 @@ public class MainLayout extends AppLayout {
         header.addClassName("header");
         addToNavbar(header);
     }
+
     private void createDrawer() {
         RouterLink listLink = new RouterLink("List", ListView.class);
         listLink.setHighlightCondition(HighlightConditions.sameLocation());
