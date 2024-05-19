@@ -3,6 +3,7 @@ package com.vaadin.tutorial.crm.ui;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.dependency.CssImport;
+import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -21,8 +22,11 @@ public class MainLayout extends AppLayout {
     private void createHeader() {
         H1 logo = new H1("CRM By Jaffar");
         logo.addClassName("logo");
-        HorizontalLayout header = new HorizontalLayout(new DrawerToggle(), logo);
 
+        Anchor logoutAnchor = new Anchor("logout", "Log Out");
+
+        HorizontalLayout header = new HorizontalLayout(new DrawerToggle(), logo, logoutAnchor);
+        header.expand(logo);
         header.setDefaultVerticalComponentAlignment(
                 FlexComponent.Alignment.CENTER);
         header.setWidth("100%");
